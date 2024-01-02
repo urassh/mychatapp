@@ -1,6 +1,9 @@
+import '../DataModel/Post.dart';
 import 'Database.dart';
 
 class DummyDatabase implements Database {
+  final List<Post> _posts = [];
+
   @override
   Future<Entity?> fetch(String id) {
     // TODO: implement fetch
@@ -8,15 +11,12 @@ class DummyDatabase implements Database {
   }
 
   @override
-  Future<List<Entity>?> fetchAll() {
-    // TODO: implement fetchAll
-    throw UnimplementedError();
+  Future<List<Entity>?> fetchAll() async {
+    return _posts;
   }
 
   @override
-  Future<void> post(Entity entity) {
-    // TODO: implement post
-    throw UnimplementedError();
+  Future<void> post(Entity entity) async {
+    _posts.add(entity as Post);
   }
-
 }

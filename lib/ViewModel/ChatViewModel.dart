@@ -16,6 +16,7 @@ class ChatViewModel extends ChangeNotifier {
 
   Future<void> logout() async {
     await _auth.logout();
+    session.destroySession();
   }
 
   Future<void> navigateToLoginPage() async {

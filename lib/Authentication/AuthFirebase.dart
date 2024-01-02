@@ -13,8 +13,11 @@ class AuthFirebase implements Authentication {
   }
 
   @override
-  Future<void> login(String email, String password) {
-    // TODO: implement login
-    throw UnimplementedError();
+  Future<void> login(String email, String password) async {
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    await auth.signInWithEmailAndPassword(
+        email: email,
+        password: password
+    );
   }
 }

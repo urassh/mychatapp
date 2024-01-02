@@ -14,14 +14,28 @@ class LoginPageViewModel extends ChangeNotifier {
   Future<void> registerUser(BuildContext context) async {
     try {
       auth.register(email, password);
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) {
-          return ChatPage();
-        }),
-      );
+      _navigateToChatPage(context);
     } catch (e) {
       infoText = "登録に失敗しました：${e.toString()}";
       notifyListeners();
     }
+  }
+
+  Future<void> loginUser(BuildContext context) async {
+    try {
+      auth.login(email, password);
+      _navigateToChatPage(context);
+    } catch (e) {
+      infoText = "登録に失敗しました：${e.toString()}";
+      notifyListeners();
+    }
+  }
+
+  Future<void> _navigateToChatPage(BuildContext context) async {
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(builder: (context) {
+        return ChatPage();
+      }),
+    );
   }
 }

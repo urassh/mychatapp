@@ -8,7 +8,7 @@ import '../View/ChatPage.dart';
 class LoginPageViewModel extends ChangeNotifier {
   String email = '';
   String password = '';
-  String infoText = '';
+  String errorText = '';
   Authentication auth = AuthDummy();
 
   Future<void> registerUser(BuildContext context) async {
@@ -16,7 +16,7 @@ class LoginPageViewModel extends ChangeNotifier {
       auth.register(email, password);
       _navigateToChatPage(context);
     } catch (e) {
-      infoText = "登録に失敗しました：${e.toString()}";
+      errorText = "登録に失敗しました：${e.toString()}";
       notifyListeners();
     }
   }
@@ -26,7 +26,7 @@ class LoginPageViewModel extends ChangeNotifier {
       auth.login(email, password);
       _navigateToChatPage(context);
     } catch (e) {
-      infoText = "登録に失敗しました：${e.toString()}";
+      errorText = "登録に失敗しました：${e.toString()}";
       notifyListeners();
     }
   }

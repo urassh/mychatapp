@@ -1,9 +1,11 @@
+import 'package:mychatapp/DataModel/User.dart';
+
 abstract class Authentication {
-  Future<void> register(String email, String password) async {
+  Future<User?> register(String email, String password) async {
 
   }
 
-  Future<void> login(String email, String password) async {
+  Future<User?> login(String email, String password) async {
 
   }
 }

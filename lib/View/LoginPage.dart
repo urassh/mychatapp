@@ -72,11 +72,10 @@ class _LoginPageState extends State<LoginPage> {
 
               Container(
                 padding: const EdgeInsets.all(8),
-                child: Text(_viewModel.infoText),
+                child: Text(_viewModel.errorText),
               ),
 
               const SizedBox(height: 32),
-
 
               SizedBox(
                 width: double.infinity,

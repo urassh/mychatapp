@@ -4,16 +4,19 @@ import 'package:mychatapp/Authentication/Authentication.dart';
 import 'package:mychatapp/Authentication/AuthFirebase.dart';
 import '../Authentication/AuthDummy.dart';
 import '../View/ChatPage.dart';
+// ignore: library_prefixes
+import 'package:mychatapp/DataModel/User.dart' as MyUser;
 
 class LoginPageViewModel extends ChangeNotifier {
   String email = '';
   String password = '';
   String errorText = '';
-  Authentication auth = AuthDummy();
+  Authentication auth = AuthFirebase();
+  MyUser.User? sessionUser;
 
   Future<void> registerUser(BuildContext context) async {
     try {
-      auth.register(email, password);
+      sessionUser = auth.register(email, password) as MyUser.User?;
       _navigateToChatPage(context);
     } catch (e) {
       errorText = "登録に失敗しました：${e.toString()}";
@@ -23,7 +26,7 @@ class LoginPageViewModel extends ChangeNotifier {
 
   Future<void> loginUser(BuildContext context) async {
     try {
-      auth.login(email, password);
+      sessionUser = auth.login(email, password) as MyUser.User?;
       _navigateToChatPage(context);
     } catch (e) {
       errorText = "登録に失敗しました：${e.toString()}";

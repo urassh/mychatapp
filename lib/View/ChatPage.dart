@@ -1,7 +1,6 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'AddPostPage.dart';
 import 'LoginPage.dart';
 
@@ -10,7 +9,7 @@ class ChatPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('チャット'),
+        title: const Text('チャット'),
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.close),

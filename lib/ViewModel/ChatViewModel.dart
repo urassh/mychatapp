@@ -11,10 +11,10 @@ class ChatViewModel extends ChangeNotifier {
   Future<void> logout(BuildContext context) async {
     await _auth.logout();
     // ignore: use_build_context_synchronously
-    await _navigateToChatPage(context);
+    await _navigateToLoginPage(context);
   }
 
-  Future<void> _navigateToChatPage(BuildContext context) async {
+  Future<void> _navigateToLoginPage(BuildContext context) async {
     await Navigator.of(context).pushReplacement(
       MaterialPageRoute(builder: (context) {
         return const LoginPage();

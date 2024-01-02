@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:mychatapp/DataModel/Account.dart';
 import 'package:mychatapp/ViewModel/ChatViewModel.dart';
-import 'AddPostPage.dart';
+import 'PostPage.dart';
 
 class ChatPage extends StatelessWidget {
-  ChatPage(this.user, {super.key});
-  final ChatViewModel viewModel = ChatViewModel();
-  final Account user;
+  const ChatPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final ChatViewModel viewModel = ChatViewModel(context);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('チャット'),
@@ -17,23 +17,19 @@ class ChatPage extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.logout),
             onPressed: () async {
-              await viewModel.logout(context);
+              await viewModel.logout();
+              await viewModel.navigateToLoginPage();
             },
           ),
         ],
       ),
       body: Center(
-        child: Text('ログイン情報：${user.email}'),
+        child: Text('ログイン情報：${viewModel.session.authenticatedUser.email}'),
       ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
         onPressed: () async {
-          // 投稿画面に遷移
-          await Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) {
-              return const AddPostPage();
-            }),
-          );
+          await viewModel.navigateToAddPostPage();
         },
       ),
     );

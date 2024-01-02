@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:mychatapp/DataModel/User.dart';
+import 'package:mychatapp/DataModel/Account.dart';
 import 'package:mychatapp/ViewModel/ChatViewModel.dart';
 import 'AddPostPage.dart';
 
 class ChatPage extends StatelessWidget {
   ChatPage(this.user, {super.key});
   final ChatViewModel viewModel = ChatViewModel();
-  final User user;
+  final Account user;
 
   @override
   Widget build(BuildContext context) {

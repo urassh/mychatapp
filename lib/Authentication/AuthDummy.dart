@@ -1,13 +1,13 @@
-import '../DataModel/User.dart';
+import '../DataModel/Account.dart';
 import 'Authentication.dart';
 
 class AuthDummy implements Authentication {
   // ignore: library_private_types_in_public_api
-  static List<User> users = [];
+  static List<Account> users = [];
 
   @override
-  Future<User?> login(String email, String password) async {
-    User? user = users.firstWhere((user) => user.email == email);
+  Future<Account?> login(String email, String password) async {
+    Account? user = users.firstWhere((user) => user.email == email);
 
     if (user == null) {
       return null;
@@ -23,13 +23,13 @@ class AuthDummy implements Authentication {
   }
 
   @override
-  Future<User?> register(String email, String password) async {
+  Future<Account?> register(String email, String password) async {
     if (users.any((user) => user.email == email)) {
       print('このメールアドレスは既に登録されています: $email');
       return null;
     }
 
-    User newUser = User(email: email, password: password);
+    Account newUser = Account(email: email, password: password);
     users.add(newUser);
     print('新規ユーザー登録成功: $email');
     return newUser;

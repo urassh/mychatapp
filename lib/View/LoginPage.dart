@@ -65,7 +65,7 @@ class _LoginPageState extends State<LoginPage> {
                   setState(() {
                     _isSignup = !_isSignup;
                   });
-                }, child: Text('here is ${_isSignup ? 'Signup' : 'login'}'))]
+                }, child: Text('here is ${_isSignup ? 'Login' : 'Signup'}'))]
               ),
 
               const SizedBox(height: 16),

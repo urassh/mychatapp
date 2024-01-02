@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mychatapp/Authentication/Authentication.dart';
 import 'package:mychatapp/Authentication/AuthFirebase.dart';
@@ -35,9 +34,13 @@ class LoginPageViewModel extends ChangeNotifier {
   }
 
   Future<void> _navigateToChatPage(BuildContext context) async {
+    if (sessionUser == null) {
+      return ;
+    }
+
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(builder: (context) {
-        return ChatPage();
+        return ChatPage(sessionUser!);
       }),
     );
   }

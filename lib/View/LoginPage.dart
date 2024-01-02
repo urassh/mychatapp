@@ -14,7 +14,16 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final LoginPageViewModel _viewModel = LoginPageViewModel();
-  
+  bool _isSignup = true;
+
+  Future<void> _authUser() async {
+    if (_isSignup) {
+      await _viewModel.registerUser(context);
+    } else {
+      await _viewModel.loginUser(context);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,6 +33,10 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              Text(_isSignup ? 'Signup!' : 'Login!', style: const TextStyle(fontSize: 32)),
+
+              const SizedBox(height: 32),
+
               TextFormField(
                 decoration: const InputDecoration(labelText: 'メールアドレス'),
                 onChanged: (String value) {
@@ -32,6 +45,9 @@ class _LoginPageState extends State<LoginPage> {
                   });
                 },
               ),
+
+              const SizedBox(height: 16),
+
               TextFormField(
                 decoration: const InputDecoration(labelText: 'パスワード'),
                 obscureText: true,
@@ -41,16 +57,33 @@ class _LoginPageState extends State<LoginPage> {
                   });
                 },
               ),
+
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [TextButton(onPressed: (){
+                  setState(() {
+                    _isSignup = !_isSignup;
+                  });
+                }, child: Text('here is ${_isSignup ? 'Signup' : 'login'}'))]
+              ),
+
+              const SizedBox(height: 16),
+
               Container(
                 padding: const EdgeInsets.all(8),
                 child: Text(_viewModel.infoText),
               ),
+
+              const SizedBox(height: 32),
+
+
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  child: const Text('ユーザー登録'),
+                  child: Text(_isSignup ? 'ユーザー登録' : 'ログイン'),
                   onPressed: () async {
-                    await _viewModel.registerUser(context);
+                    _authUser();
                   },
                 ),
               )

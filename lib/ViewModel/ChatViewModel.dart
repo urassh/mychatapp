@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mychatapp/Authentication/AuthDummy.dart';
 
 import '../Authentication/AuthFirebase.dart';
 import '../Authentication/Authentication.dart';

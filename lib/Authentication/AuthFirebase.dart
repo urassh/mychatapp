@@ -1,12 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mychatapp/Authentication/Authentication.dart';
-// ignore: library_prefixes
-import 'package:mychatapp/DataModel/User.dart' as MyUser;
+import '../DataModel/Account.dart';
 
 class AuthFirebase implements Authentication {
 
   @override
-  Future<MyUser.User?> register(String email, String password) async {
+  Future<Account?> register(String email, String password) async {
     final FirebaseAuth auth = FirebaseAuth.instance;
 
     UserCredential userCredential = await auth.createUserWithEmailAndPassword(
@@ -18,11 +17,11 @@ class AuthFirebase implements Authentication {
       return null;
     }
 
-    return MyUser.User(email: '${userCredential.user!.email}');
+    return Account(email: '${userCredential.user!.email}');
   }
 
   @override
-  Future<MyUser.User?> login(String email, String password) async {
+  Future<Account?> login(String email, String password) async {
     final FirebaseAuth auth = FirebaseAuth.instance;
 
     UserCredential userCredential = await auth.signInWithEmailAndPassword(
@@ -34,7 +33,7 @@ class AuthFirebase implements Authentication {
       return null;
     }
 
-    return MyUser.User(email: '${userCredential.user!.email}');
+    return Account(email: '${userCredential.user!.email}');
   }
 
   @override

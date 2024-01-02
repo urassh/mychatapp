@@ -36,4 +36,11 @@ class AuthFirebase implements Authentication {
 
     return MyUser.User(email: '${userCredential.user!.email}');
   }
+
+  @override
+  Future<void> logout() async {
+    final FirebaseAuth auth = FirebaseAuth.instance;
+
+    await auth.signOut();
+  }
 }

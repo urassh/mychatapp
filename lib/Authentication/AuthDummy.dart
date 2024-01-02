@@ -34,5 +34,10 @@ class AuthDummy implements Authentication {
     print('新規ユーザー登録成功: $email');
     return newUser;
   }
+
+  @override
+  Future<void> logout() async {
+    print('ログアウト成功です');
+  }
 }
 

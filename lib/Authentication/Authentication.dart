@@ -8,4 +8,8 @@ abstract class Authentication {
   Future<User?> login(String email, String password) async {
 
   }
+
+  Future<void> logout() async {
+
+  }
 }

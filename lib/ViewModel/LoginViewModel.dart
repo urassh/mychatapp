@@ -10,12 +10,12 @@ class LoginPageViewModel extends ChangeNotifier {
   String email = '';
   String password = '';
   String errorText = '';
-  Authentication auth = AuthFirebase();
-  MyUser.User? sessionUser;
+  final Authentication _auth = AuthFirebase();
+  MyUser.User? _sessionUser;
 
   Future<void> registerUser(BuildContext context) async {
     try {
-      sessionUser = auth.register(email, password) as MyUser.User?;
+      _sessionUser = _auth.register(email, password) as MyUser.User?;
       _navigateToChatPage(context);
     } catch (e) {
       errorText = "登録に失敗しました：${e.toString()}";
@@ -25,7 +25,7 @@ class LoginPageViewModel extends ChangeNotifier {
 
   Future<void> loginUser(BuildContext context) async {
     try {
-      sessionUser = auth.login(email, password) as MyUser.User?;
+      _sessionUser = _auth.login(email, password) as MyUser.User?;
       _navigateToChatPage(context);
     } catch (e) {
       errorText = "登録に失敗しました：${e.toString()}";
@@ -34,13 +34,13 @@ class LoginPageViewModel extends ChangeNotifier {
   }
 
   Future<void> _navigateToChatPage(BuildContext context) async {
-    if (sessionUser == null) {
+    if (_sessionUser == null) {
       return ;
     }
 
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(builder: (context) {
-        return ChatPage(sessionUser!);
+        return ChatPage(_sessionUser!);
       }),
     );
   }

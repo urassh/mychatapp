@@ -2,17 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:mychatapp/DataModel/User.dart';
 import 'package:mychatapp/ViewModel/ChatViewModel.dart';
 import 'AddPostPage.dart';
-import 'LoginPage.dart';
 
 class ChatPage extends StatelessWidget {
   ChatPage(this.user, {super.key});
   final ChatViewModel viewModel = ChatViewModel();
   final User user;
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('チャット'),
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.logout),
+            onPressed: () async {
+              await viewModel.logout(context);
+            },
+          ),
+        ],
+      ),
       body: Center(
         child: Text('ログイン情報：${user.email}'),
       ),

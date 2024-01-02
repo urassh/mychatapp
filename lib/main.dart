@@ -1,30 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'LoginPage.dart';
 import 'firebase_options.dart';
 import 'MyAuthPage.dart';
 
-Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  runApp(const MyChatApp());
+void main() {
+  runApp(const ChatApp());
 }
 
-class MyChatApp extends StatelessWidget {
-  const MyChatApp({super.key});
+class ChatApp extends StatelessWidget {
+  const ChatApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'ChatApp',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
-        useMaterial3: true,
+        // テーマカラー
+        primarySwatch: Colors.blue,
       ),
-      home: const MyAuthPage(),
+      // ログイン画面を表示
+      home: LoginPage(),
     );
   }
 }
-
-

@@ -19,4 +19,11 @@ class DummyDatabase implements Database {
   Future<void> post(Entity entity) async {
     _posts.add(entity as Post);
   }
+
+  @override
+  Future<void> delete(Entity entity) async {
+    if (entity is Post) {
+      _posts.remove(entity);
+    }
+  }
 }

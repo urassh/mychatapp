@@ -2,7 +2,6 @@ import '../DataModel/Account.dart';
 import 'Authentication.dart';
 
 class AuthDummy implements Authentication {
-  // ignore: library_private_types_in_public_api
   static List<Account> users = [];
 
   @override

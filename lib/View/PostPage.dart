@@ -48,9 +48,11 @@ class PostPageState extends State<PostPage> {
                child: ElevatedButton(
                  child: const Text('投稿'),
                  onPressed: () async {
-                   final date  = DateTime.now().toLocal().toIso8601String();
-                   final email = session.authenticatedUser.email;
-                   final post  = Post(email, messageText, date);
+                   final postID = Post.provideID();
+                   final email  = session.authenticatedUser.email;
+                   final time   = DateTime.now().toLocal().toIso8601String();
+
+                   final post = Post(id: postID, email: email, text: messageText, time: time);
 
                    viewModel.post(post);
                    viewModel.navigateToChatPage();

@@ -5,7 +5,6 @@ import 'package:mychatapp/Authentication/Session.dart';
 import '../Authentication/AuthDummy.dart';
 import '../DataModel/Account.dart';
 import '../View/ChatPage.dart';
-// ignore: library_prefixes
 
 class LoginPageViewModel extends ChangeNotifier {
   String email = '';

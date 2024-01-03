@@ -12,9 +12,25 @@ class FirebaseDatabase implements Database {
   }
 
   @override
-  Future<List<Entity>?> fetchAll() {
-    // TODO: implement fetchAll
-    throw UnimplementedError();
+  Future<List<Entity>?> fetchAll() async {
+    try {
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection('posts')
+          .orderBy('date')
+          .get();
+
+      List<Entity> posts = querySnapshot.docs.map((doc) => Post(
+          id: doc.id,
+          email: doc['email'],
+          text: doc['text'],
+          time: doc['time'])
+      ).toList();
+
+      return posts;
+    } catch (e) {
+      print('Error fetching posts: $e');
+      return null;
+    }
   }
 
   @override
@@ -23,7 +39,7 @@ class FirebaseDatabase implements Database {
 
     await FirebaseFirestore.instance
         .collection('posts')
-        .doc()
+        .doc(post.id)
         .set({
       'text': post.text,
       'email': post.email,
@@ -31,4 +47,13 @@ class FirebaseDatabase implements Database {
     });
   }
 
+  @override
+  Future<void> delete(Entity entity) async {
+    Post post = entity as Post;
+
+    await FirebaseFirestore.instance
+        .collection('posts')
+        .doc(post.id)
+        .delete();
+  }
 }

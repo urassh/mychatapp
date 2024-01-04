@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mychatapp/Authentication/Authentication.dart';
-import 'package:mychatapp/Authentication/AuthFirebase.dart';
 import 'package:mychatapp/Authentication/Session.dart';
-import '../Authentication/AuthDummy.dart';
+import 'package:mychatapp/administration.dart';
 import '../DataModel/Account.dart';
 import '../View/ChatPage.dart';
 
@@ -10,7 +9,7 @@ class LoginPageViewModel extends ChangeNotifier {
   String email = '';
   String password = '';
   String errorText = '';
-  final Authentication _auth = AuthFirebase();
+  final Authentication _auth = Services.authentication;
   final Session session = Session();
 
   Future<void> registerUser(BuildContext context) async {
@@ -32,14 +31,14 @@ class LoginPageViewModel extends ChangeNotifier {
       // ignore: use_build_context_synchronously
       _navigateToChatPage(context);
     } catch (e) {
-      errorText = "登録に失敗しました：${e.toString()}";
+      errorText = "ログインに失敗しました：${e.toString()}";
       notifyListeners();
     }
   }
 
   Future<void> _navigateToChatPage(BuildContext context) async {
     if (!session.isUserAuthenticated()) {
-      return ;
+      return;
     }
 
     Navigator.of(context).pushReplacement(

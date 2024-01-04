@@ -64,6 +64,7 @@ class _LoginPageState extends State<LoginPage> {
                 children: [TextButton(onPressed: (){
                   setState(() {
                     _isSignup = !_isSignup;
+                    _viewModel.errorText = '';
                   });
                 }, child: Text('here is ${_isSignup ? 'Login' : 'Signup'}'))]
               ),

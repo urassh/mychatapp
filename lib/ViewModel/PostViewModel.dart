@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:mychatapp/Authentication/Session.dart';
-import 'package:mychatapp/Database/DummyDatabase.dart';
 import 'package:mychatapp/View/ChatPage.dart';
+import 'package:mychatapp/administration.dart';
 import '../DataModel/Post.dart';
 import '../Database/Database.dart';
 
 class PostViewModel extends ChangeNotifier {
-  final Database _database = DummyDatabase();
+  final Database _database = Services.database;
   final BuildContext context;
   PostViewModel(this.context);
 

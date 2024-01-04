@@ -12,6 +12,7 @@ class DummyDatabase implements Database {
 
   @override
   Future<List<Entity>?> fetchAll() async {
+    print('post : $_posts');
     return _posts;
   }
 

@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mychatapp/DataModel/Account.dart';
 import 'package:mychatapp/ViewModel/ChatViewModel.dart';
 import '../DataModel/Post.dart';
+import '../main.dart';
 import 'PostWidget.dart';
 
-class ChatPage extends StatelessWidget {
+class ChatPage extends ConsumerWidget {
   const ChatPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final ChatViewModel _viewModel = ChatViewModel(context);
     final Account user = _viewModel.session.authenticatedUser;
 

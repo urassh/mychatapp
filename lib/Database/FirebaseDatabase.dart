@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-
 import '../DataModel/Post.dart';
 import 'Database.dart';
-
 
 class FirebaseDatabase implements Database {
   @override
@@ -23,7 +21,7 @@ class FirebaseDatabase implements Database {
           id: doc.id,
           email: doc['email'],
           text: doc['text'],
-          time: doc['time'])
+          time: doc['date'])
       ).toList();
 
       return posts;

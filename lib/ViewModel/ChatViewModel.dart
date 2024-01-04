@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:mychatapp/Authentication/AuthDummy.dart';
 import 'package:mychatapp/Database/Database.dart';
-import 'package:mychatapp/Database/FirebaseDatabase.dart';
 import 'package:mychatapp/View/PostPage.dart';
 import 'package:mychatapp/View/PostWidget.dart';
-
-import '../Authentication/AuthFirebase.dart';
+import 'package:mychatapp/administration.dart';
 import '../Authentication/Authentication.dart';
 import '../Authentication/Session.dart';
 import '../DataModel/Post.dart';
+import '../View/ChatPage.dart';
 import '../View/LoginPage.dart';
 
 class ChatViewModel extends ChangeNotifier implements PostDeleteDelegate {
-  final Authentication _auth = AuthFirebase();
-  final Database _database = FirebaseDatabase();
+  final Authentication _auth = Services.authentication;
+  final Database _database = Services.database;
   final BuildContext context;
   final Session session = Session();
 
@@ -47,6 +45,6 @@ class ChatViewModel extends ChangeNotifier implements PostDeleteDelegate {
   @override
   Future<void> deletePost(Post post) async {
     await _database.delete(post);
-    notifyListeners();
+    _navigateToPages(const ChatPage());
   }
 }

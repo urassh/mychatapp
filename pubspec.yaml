@@ -37,6 +37,7 @@ dependencies:
   firebase_core_platform_interface: 5.0.0
   cloud_firestore: ^4.13.6
   uuid: ^4.2.2
+  flutter_riverpod: ^2.1.1
 
   flutter_test:
     sdk: flutter

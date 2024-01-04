@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mychatapp/DataModel/Post.dart';
 import 'package:mychatapp/ViewModel/PostViewModel.dart';
-
 import '../Authentication/Session.dart';
 
 class PostPage extends StatefulWidget {
@@ -58,7 +57,13 @@ class PostPageState extends State<PostPage> {
                    viewModel.navigateToChatPage();
                  },
                ),
-             )
+             ),
+
+             const SizedBox(height: 8),
+
+             TextButton(onPressed: () {
+              viewModel.navigateToChatPage();
+             }, child: const Text('chatView'))
            ],
          ),
        ),

@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
 class Account {
-  late String email;
-  late String password = '';
+  String email;
+  String password = '';
 
   Account({required this.email, this.password = ''});
 

@@ -1,24 +1,50 @@
 import 'package:flutter/material.dart';
-import 'package:mychatapp/Authentication/AuthDummy.dart';
-
-import '../Authentication/AuthFirebase.dart';
+import 'package:mychatapp/Database/Database.dart';
+import 'package:mychatapp/View/PostPage.dart';
+import 'package:mychatapp/View/PostWidget.dart';
+import 'package:mychatapp/administration.dart';
 import '../Authentication/Authentication.dart';
+import '../Authentication/Session.dart';
+import '../DataModel/Post.dart';
+import '../View/ChatPage.dart';
 import '../View/LoginPage.dart';
 
-class ChatViewModel extends ChangeNotifier {
-  final Authentication _auth = AuthFirebase();
+class ChatViewModel extends ChangeNotifier implements PostDeleteDelegate {
+  final Authentication _auth = Services.authentication;
+  final Database _database = Services.database;
+  final BuildContext context;
+  final Session session = Session();
 
-  Future<void> logout(BuildContext context) async {
+  ChatViewModel(this.context);
+
+  Future<void> logout() async {
     await _auth.logout();
-    // ignore: use_build_context_synchronously
-    await _navigateToChatPage(context);
+    session.destroySession();
   }
 
-  Future<void> _navigateToChatPage(BuildContext context) async {
+  Future<List<Post>> fetchPosts() async {
+    return await _database.fetchAll() as List<Post>;
+  }
+
+  Future<void> navigateToLoginPage() async {
+    _navigateToPages(const LoginPage());
+  }
+
+  Future<void> navigateToAddPostPage() async {
+    _navigateToPages(const PostPage());
+  }
+
+  Future<void> _navigateToPages(Widget widget) async {
     await Navigator.of(context).pushReplacement(
       MaterialPageRoute(builder: (context) {
-        return const LoginPage();
+        return widget;
       }),
     );
+  }
+
+  @override
+  Future<void> deletePost(Post post) async {
+    await _database.delete(post);
+    _navigateToPages(const ChatPage());
   }
 }

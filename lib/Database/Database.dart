@@ -12,4 +12,8 @@ abstract class Database<T extends Entity> {
   Future<void> post(T entity) async {
 
   }
+
+  Future<void> delete(T entity) async {
+
+  }
 }

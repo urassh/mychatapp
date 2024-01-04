@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'View/LoginPage.dart';
-import 'firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,11 +18,11 @@ class ChatApp extends StatelessWidget {
     return MaterialApp(
       title: 'ChatApp',
       theme: ThemeData(
-        // テーマカラー
         primarySwatch: Colors.blue,
       ),
-      // ログイン画面を表示
-      home: LoginPage(),
+      home: const ProviderScope(
+        child: LoginPage(),
+      ),
     );
   }
 }

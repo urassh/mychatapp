@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:mychatapp/Authentication/Authentication.dart';
-import 'package:mychatapp/Authentication/AuthFirebase.dart';
-import '../Authentication/AuthDummy.dart';
+import 'package:mychatapp/Authentication/Session.dart';
+import 'package:mychatapp/administration.dart';
 import '../DataModel/Account.dart';
 import '../View/ChatPage.dart';
-// ignore: library_prefixes
-import 'package:mychatapp/DataModel/Account.dart' as MyUser;
 
 class LoginPageViewModel extends ChangeNotifier {
   String email = '';
   String password = '';
   String errorText = '';
-  final Authentication _auth = AuthFirebase();
-  Account? _sessionUser;
+  final Authentication _auth = Services.authentication;
+  final Session session = Session();
 
   Future<void> registerUser(BuildContext context) async {
     try {
-      _sessionUser = await _auth.register(email, password);
+      Account? account = await _auth.register(email, password);
+      await session.setAuthenticatedUser(account!);
+      // ignore: use_build_context_synchronously
       await _navigateToChatPage(context);
     } catch (e) {
       errorText = "登録に失敗しました：${e.toString()}";
@@ -26,22 +26,24 @@ class LoginPageViewModel extends ChangeNotifier {
 
   Future<void> loginUser(BuildContext context) async {
     try {
-      _sessionUser = await _auth.login(email, password);
+      Account? account = await _auth.login(email, password);
+      session.setAuthenticatedUser(account!);
+      // ignore: use_build_context_synchronously
       _navigateToChatPage(context);
     } catch (e) {
-      errorText = "登録に失敗しました：${e.toString()}";
+      errorText = "ログインに失敗しました：${e.toString()}";
       notifyListeners();
     }
   }
 
   Future<void> _navigateToChatPage(BuildContext context) async {
-    if (_sessionUser == null) {
-      return ;
+    if (!session.isUserAuthenticated()) {
+      return;
     }
 
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(builder: (context) {
-        return ChatPage(_sessionUser!);
+        return const ChatPage();
       }),
     );
   }

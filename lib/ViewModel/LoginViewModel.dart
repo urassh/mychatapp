@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mychatapp/Authentication/Authentication.dart';
 import 'package:mychatapp/Authentication/Session.dart';
 import 'package:mychatapp/administration.dart';
-import '../DataModel/Account.dart';
+import '../DataModel/User.dart';
 import '../View/ChatPage.dart';
 
 class LoginPageViewModel extends ChangeNotifier {
@@ -14,7 +14,7 @@ class LoginPageViewModel extends ChangeNotifier {
 
   Future<void> registerUser(BuildContext context) async {
     try {
-      Account? account = await _auth.register(email, password);
+      User? account = await _auth.register(email, password);
       await session.setAuthenticatedUser(account!);
       // ignore: use_build_context_synchronously
       await _navigateToChatPage(context);
@@ -26,7 +26,7 @@ class LoginPageViewModel extends ChangeNotifier {
 
   Future<void> loginUser(BuildContext context) async {
     try {
-      Account? account = await _auth.login(email, password);
+      User? account = await _auth.login(email, password);
       session.setAuthenticatedUser(account!);
       // ignore: use_build_context_synchronously
       _navigateToChatPage(context);

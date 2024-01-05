@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:mychatapp/DataModel/Account.dart';
+import 'package:mychatapp/DataModel/User.dart';
 import 'package:mychatapp/ViewModel/ChatViewModel.dart';
 import '../DataModel/Post.dart';
 import '../main.dart';
@@ -12,7 +12,7 @@ class ChatPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final ChatViewModel _viewModel = ChatViewModel(context);
-    final Account user = _viewModel.session.authenticatedUser;
+    final User user = _viewModel.session.authenticatedUser;
 
     return Scaffold(
       appBar: AppBar(

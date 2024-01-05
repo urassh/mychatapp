@@ -1,12 +1,12 @@
-import '../DataModel/Account.dart';
+import '../DataModel/User.dart';
 import 'Authentication.dart';
 
 class AuthDummy implements Authentication {
-  static List<Account> users = [];
+  static List<User> users = [];
 
   @override
-  Future<Account?> login(String email, String password) async {
-    Account? user = users.firstWhere((user) => user.email == email);
+  Future<User?> login(String email, String password) async {
+    User? user = users.firstWhere((user) => user.email == email);
 
     if (user == null) {
       return null;
@@ -22,13 +22,13 @@ class AuthDummy implements Authentication {
   }
 
   @override
-  Future<Account?> register(String email, String password) async {
+  Future<User?> register(String email, String password) async {
     if (users.any((user) => user.email == email)) {
       print('このメールアドレスは既に登録されています: $email');
       return null;
     }
 
-    Account newUser = Account(email: email, password: password);
+    User newUser = User(email: email, password: password);
     users.add(newUser);
     print('新規ユーザー登録成功: $email');
     return newUser;

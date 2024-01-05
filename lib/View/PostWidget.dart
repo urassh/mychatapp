@@ -2,14 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mychatapp/DataModel/Post.dart';
 import '../Authentication/Session.dart';
-import '../DataModel/Account.dart';
+import '../DataModel/User.dart';
 
 abstract class PostDeleteDelegate {
   Future<void> deletePost (Post post);
 }
 
 class PostWidget extends StatelessWidget {
-  Account sessionUser = Session().authenticatedUser;
+  User sessionUser = Session().authenticatedUser;
   PostDeleteDelegate delegate;
   Post post;
 

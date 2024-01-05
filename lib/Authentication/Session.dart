@@ -1,8 +1,8 @@
-import '../DataModel/Account.dart';
+import '../DataModel/User.dart';
 
 class Session {
   static final Session _shared = Session._internal();
-  Account? _authenticatedUser;
+  User? _authenticatedUser;
 
   factory Session() {
     return _shared;
@@ -10,7 +10,7 @@ class Session {
 
   Session._internal();
 
-  Account get authenticatedUser {
+  User get authenticatedUser {
     if (_authenticatedUser == null) {
       throw Exception("User not authenticated");
     }
@@ -18,7 +18,7 @@ class Session {
     return _authenticatedUser!;
   }
 
-  Future<void> setAuthenticatedUser(Account user) async {
+  Future<void> setAuthenticatedUser(User user) async {
     _authenticatedUser = user;
   }
 

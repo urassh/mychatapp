@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mychatapp/Authentication/Session.dart';
 import 'package:mychatapp/DataModel/User.dart';
 import 'package:mychatapp/ViewModel/ChatViewModel.dart';
 import '../DataModel/Post.dart';
-import '../main.dart';
-import 'PostWidget.dart';
+
+abstract class PostDeleteDelegate {
+  Future<void> deletePost (Post post);
+}
 
 class ChatPage extends ConsumerWidget {
   const ChatPage({super.key});
@@ -54,7 +57,7 @@ class ChatPage extends ConsumerWidget {
                   return ListView.builder(
                     itemCount: snapshot.data!.length,
                     itemBuilder: (context, index) {
-                      return PostWidget(post: snapshot.data![index], delegate: _viewModel,);
+                      return ChatWidget(post: snapshot.data![index], delegate: _viewModel,);
                     },
                   );
                 }
@@ -77,3 +80,52 @@ class ChatPage extends ConsumerWidget {
   }
 }
 
+class ChatWidget extends StatelessWidget {
+  User sessionUser = Session().authenticatedUser;
+  PostDeleteDelegate delegate;
+  Post post;
+
+  ChatWidget({super.key, required this.post, required this.delegate});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: ListTile(
+        title: Text(post.text),
+        subtitle: Text(post.email),
+        trailing: post.email == sessionUser.email
+            ? IconButton(
+          icon: const Icon(Icons.delete),
+          onPressed: () async {
+            delegate.deletePost(post);
+          },
+        ) : null,
+      ),
+    );
+  }
+}
+
+class PostWidget extends StatelessWidget {
+  User sessionUser = Session().authenticatedUser;
+  PostDeleteDelegate delegate;
+  Post post;
+
+  PostWidget({super.key, required this.post, required this.delegate});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: ListTile(
+        title: Text(post.text),
+        subtitle: Text(post.email),
+        trailing: post.email == sessionUser.email
+            ? IconButton(
+          icon: const Icon(Icons.delete),
+          onPressed: () async {
+            delegate.deletePost(post);
+          },
+        ) : null,
+      ),
+    );
+  }
+}

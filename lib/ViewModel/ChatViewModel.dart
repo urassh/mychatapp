@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mychatapp/Database/Database.dart';
 import 'package:mychatapp/View/PostPage.dart';
-import 'package:mychatapp/View/PostWidget.dart';
 import 'package:mychatapp/administration.dart';
 import '../Authentication/Authentication.dart';
 import '../Authentication/Session.dart';
